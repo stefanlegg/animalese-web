@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>animalese-web demo</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, sans-serif;
+        background: #f5f0e6;
+        color: #3c3c3c;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        color: #5c8a4d;
+      }
+
+      .demo-container {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        max-width: 500px;
+        width: 100%;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      .text-display {
+        background: #fffbe6;
+        border: 2px solid #e8dfc0;
+        border-radius: 12px;
+        padding: 1.25rem;
+        min-height: 80px;
+        margin-bottom: 1.5rem;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+
+      .text-display .cursor {
+        display: inline-block;
+        width: 2px;
+        height: 1.1em;
+        background: #5c8a4d;
+        vertical-align: text-bottom;
+        animation: blink 0.8s step-end infinite;
+      }
+
+      @keyframes blink {
+        50% { opacity: 0; }
+      }
+
+      .controls {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .input-row {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .input-row input[type="text"] {
+        flex: 1;
+        padding: 0.6rem 0.8rem;
+        border: 2px solid #d4cdb5;
+        border-radius: 8px;
+        font-size: 1rem;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+
+      .input-row input[type="text"]:focus {
+        border-color: #5c8a4d;
+      }
+
+      button {
+        padding: 0.6rem 1.2rem;
+        border: none;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s, transform 0.1s;
+      }
+
+      button:active {
+        transform: scale(0.97);
+      }
+
+      .btn-speak {
+        background: #5c8a4d;
+        color: white;
+      }
+
+      .btn-speak:hover {
+        background: #4a7340;
+      }
+
+      .btn-speak:disabled {
+        background: #b0c4a8;
+        cursor: not-allowed;
+      }
+
+      .btn-stop {
+        background: #c75050;
+        color: white;
+      }
+
+      .btn-stop:hover {
+        background: #a84040;
+      }
+
+      .btn-stop:disabled {
+        background: #d4a8a8;
+        cursor: not-allowed;
+      }
+
+      .btn-pause {
+        background: #d4a843;
+        color: white;
+      }
+
+      .btn-pause:hover {
+        background: #b89038;
+      }
+
+      .btn-pause:disabled {
+        background: #e0d0a0;
+        cursor: not-allowed;
+      }
+
+      .sliders {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+      }
+
+      .slider-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+
+      .slider-group label {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #666;
+      }
+
+      .slider-group input[type="range"] {
+        width: 100%;
+        accent-color: #5c8a4d;
+      }
+
+      .slider-group .value {
+        font-size: 0.75rem;
+        color: #999;
+        text-align: right;
+      }
+
+      .button-row {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .checkbox-row {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.85rem;
+        color: #666;
+      }
+
+      .status {
+        font-size: 0.8rem;
+        color: #999;
+        text-align: center;
+        margin-top: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>animalese-web</h1>
+    <div class="demo-container">
+      <div class="text-display" id="textDisplay">
+        <span id="textContent"></span><span class="cursor" id="cursor"></span>
+      </div>
+
+      <div class="controls">
+        <div class="input-row">
+          <input
+            type="text"
+            id="textInput"
+            placeholder="Type something..."
+            value="Hello! Welcome to my island!"
+          />
+          <button class="btn-speak" id="speakBtn">Speak</button>
+        </div>
+
+        <div class="button-row">
+          <button class="btn-pause" id="pauseBtn" disabled>Pause</button>
+          <button class="btn-stop" id="stopBtn" disabled>Stop</button>
+        </div>
+
+        <div class="sliders">
+          <div class="slider-group">
+            <label>Pitch</label>
+            <input type="range" id="pitchSlider" min="0.3" max="3.0" step="0.1" value="1.0" />
+            <span class="value" id="pitchValue">1.0</span>
+          </div>
+          <div class="slider-group">
+            <label>Variation</label>
+            <input type="range" id="variationSlider" min="0" max="1.0" step="0.05" value="0.25" />
+            <span class="value" id="variationValue">0.25</span>
+          </div>
+          <div class="slider-group">
+            <label>Speed</label>
+            <input type="range" id="speedSlider" min="0.03" max="0.2" step="0.005" value="0.075" />
+            <span class="value" id="speedValue">0.075s</span>
+          </div>
+          <div class="slider-group">
+            <label>Volume</label>
+            <input type="range" id="volumeSlider" min="0" max="1.0" step="0.05" value="0.8" />
+            <span class="value" id="volumeValue">0.8</span>
+          </div>
+        </div>
+
+        <div class="checkbox-row">
+          <input type="checkbox" id="shortenCheck" />
+          <label for="shortenCheck">Shorten words (AC style)</label>
+        </div>
+
+        <div class="status" id="status">Ready</div>
+      </div>
+    </div>
+
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

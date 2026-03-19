@@ -1,0 +1,41 @@
+{
+  "name": "animalese-web",
+  "version": "0.1.0",
+  "description": "Web Audio API animalese (Animal Crossing speech) synthesis with real-time per-letter playback and typewriter sync callbacks",
+  "type": "module",
+  "main": "./dist/animalese-web.cjs",
+  "module": "./dist/animalese-web.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/animalese-web.js",
+      "require": "./dist/animalese-web.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "assets"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "animalese",
+    "animal-crossing",
+    "speech-synthesis",
+    "web-audio",
+    "typewriter",
+    "text-to-speech"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "vite": "^8.0.0",
+    "vite-plugin-dts": "^4.5.4"
+  },
+  "packageManager": "pnpm@10.13.1"
+}
