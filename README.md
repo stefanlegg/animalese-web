@@ -2,7 +2,7 @@
 
 Modern Web Audio API library for synthesizing Animal Crossing "animalese" speech with real-time streaming playback, typewriter sync callbacks, and full playback control.
 
-A ground-up rewrite of [animalese.js](https://github.com/Acedio/animalese.js) using modern web standards.
+A ground-up rewrite of [animalese.js](https://github.com/Acedio/animalese.js) using modern web standards. **[Try the live demo](https://stefanlegg.github.io/animalese-web/)**
 
 ## Features
 
@@ -250,6 +250,8 @@ Two concurrent loops drive playback:
 Pause saves the current position and stops all active audio nodes. Resume restarts both loops from the saved position with fresh timing.
 
 ## Demo
+
+**[Live demo](https://stefanlegg.github.io/animalese-web/)** — try it in your browser.
 
 The `demo/` directory contains an interactive demo with:
 
