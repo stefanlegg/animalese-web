@@ -38,7 +38,7 @@ let currentHandle: SpeechHandle | null = null;
 // Load samples
 status.textContent = "Loading samples...";
 animalese
-  .load("/animalese.wav")
+  .load(`${import.meta.env.BASE_URL}animalese.wav`)
   .then(() => {
     status.textContent = "Ready";
     speakBtn.disabled = false;
