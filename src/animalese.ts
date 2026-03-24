@@ -63,6 +63,21 @@ export class Animalese {
   }
 
   /**
+   * Whether the sample library has been loaded and the instance is ready to speak.
+   */
+  get isLoaded(): boolean {
+    return this.letterBuffers !== null;
+  }
+
+  /**
+   * Release the decoded sample buffers from memory.
+   * After calling dispose(), load() must be called again before speaking.
+   */
+  dispose(): void {
+    this.letterBuffers = null;
+  }
+
+  /**
    * Load and decode the letter samples WAV file.
    * Must be called once before speak(). Idempotent — subsequent calls
    * reload and re-slice the samples.

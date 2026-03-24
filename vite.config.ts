@@ -3,9 +3,17 @@ import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 
 export default defineConfig(({ command }) => {
+  const shared = {
+    test: {
+      include: ["tests/**/*.test.ts"],
+      root: resolve(__dirname),
+    },
+  };
+
   if (command === "serve") {
     // Dev mode: serve the demo page
     return {
+      ...shared,
       root: "demo",
       publicDir: resolve(__dirname, "assets"),
       server: {
@@ -16,6 +24,7 @@ export default defineConfig(({ command }) => {
 
   // Build mode: library output
   return {
+    ...shared,
     plugins: [dts({ include: ["src"] })],
     build: {
       lib: {

@@ -11,7 +11,8 @@
       "import": "./dist/animalese-web.js",
       "require": "./dist/animalese-web.cjs",
       "types": "./dist/index.d.ts"
-    }
+    },
+    "./assets/animalese.wav": "./assets/animalese.wav"
   },
   "files": [
     "dist",
@@ -21,7 +22,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "keywords": [
     "animalese",
@@ -35,7 +38,8 @@
   "devDependencies": {
     "typescript": "^5.9.3",
     "vite": "^8.0.0",
-    "vite-plugin-dts": "^4.5.4"
+    "vite-plugin-dts": "^4.5.4",
+    "vitest": "^4.1.1"
   },
   "packageManager": "pnpm@10.13.1"
 }

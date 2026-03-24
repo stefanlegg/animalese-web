@@ -48,11 +48,19 @@ export interface SpeakOptions {
   /** Fired when speech finishes naturally. */
   onComplete?: OnCompleteCallback;
 
-  /** Per-call overrides. */
+  /** Base pitch multiplier override. 1.0 = original, >1 = higher, <1 = lower. */
   basePitch?: number;
+
+  /** Random pitch variation range override. e.g. 0.25 means +/- 0.125 per letter. */
   pitchRange?: number;
+
+  /** Duration of each letter in seconds override. */
   letterDuration?: number;
+
+  /** Shorten words to first letter only (AC style) override. */
   shortenWords?: boolean;
+
+  /** Volume override (0.0 to 1.0). */
   volume?: number;
 }
 

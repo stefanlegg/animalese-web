@@ -53,5 +53,21 @@ export async function loadAudioBuffer(
     arrayBuffer = await response.arrayBuffer();
   }
 
-  return ctx.decodeAudioData(arrayBuffer);
+  let decoded: AudioBuffer;
+  try {
+    decoded = await ctx.decodeAudioData(arrayBuffer);
+  } catch (err) {
+    throw new Error(
+      `Failed to decode audio data. Ensure the source is a valid audio file. (${err instanceof Error ? err.message : err})`,
+    );
+  }
+
+  const minSamples = Math.round(LETTER_COUNT * LIBRARY_LETTER_DURATION * decoded.sampleRate);
+  if (decoded.length < minSamples) {
+    throw new Error(
+      `Audio buffer too short: expected at least ${minSamples} samples for ${LETTER_COUNT} letters, got ${decoded.length}.`,
+    );
+  }
+
+  return decoded;
 }
